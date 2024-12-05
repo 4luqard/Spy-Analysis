@@ -1,6 +1,5 @@
 import unittest
 import gc
-from math import ceil
 
 import warnings
 def ignore_warn(*args, **kwargs):
@@ -34,11 +33,10 @@ class TestHegy(unittest.TestCase):
         
         self.trend = True
         self.constant = True
-        self.maxlag = int(ceil(12 * (len(self.data) / 100) ** (1 / 4)))
 
     def test_seasonal_unit_root(self):
         # Test the HEGY test on a series with a seasonal unit root
-        stat, pvalues = hegy_test(self.data, self.seasonal_period, self.trend, self.constant, self.maxlag)
+        stat, pvalues = hegy_test(self.data, self.seasonal_period, self.trend, self.constant)
         for key in self.expected_pvalue:
             if key == "p_value_f":
                 self.assertAlmostEqual(pvalues[key], self.expected_pvalue[key], places=0)

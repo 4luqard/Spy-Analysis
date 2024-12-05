@@ -3,8 +3,9 @@
 import numpy as np
 import pandas as pd
 from statsmodels.regression.linear_model import OLS
+from math import ceil
 
-def hegy_test(data, seasonal_period, trend, constant, maxlag):
+def hegy_test(data, seasonal_period, trend, constant):
     """
     Perform the HEGY seasonal unit root test for any seasonal period.
     
@@ -19,6 +20,8 @@ def hegy_test(data, seasonal_period, trend, constant, maxlag):
     - stat: None (placeholder, can be extended to include test statistics).
     - pvalue: dict, contains p-values for t-statistics and F-statistics.
     """
+    maxlag = int(ceil(12 * (len(data) / 100) ** (1 / 4)))
+    
     y = np.array(data)
     s = seasonal_period
     
